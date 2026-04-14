@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  spark:
+    image: bitnami/spark:3.5
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - "4040:4040"   # Spark UI
+      - "7077:7077"   # Spark master
+      - "8080:8080"   # Spark master web UI
+    volumes:
+      - ../src:/opt/spark/work/src
+      - ../data:/opt/spark/work/data
+      - ../notebooks:/opt/spark/work/notebooks
+
+  spark-worker:
+    image: bitnami/spark:3.5
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+    depends_on:
+      - spark
+
+  # Iceberg REST catalog (Week 2)
+  # Uncomment when starting Week 2
+  # iceberg-rest:
+  #   image: tabulario/iceberg-rest:latest
+  #   ports:
+  #     - "8181:8181"
+  #   environment:
+  #     - CATALOG_WAREHOUSE=s3://warehouse
+  #     - CATALOG_IO__IMPL=org.apache.iceberg.io.ResolvingFileIO

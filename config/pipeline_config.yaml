@@ -1,0 +1,31 @@
+# Pipeline configuration
+# Modify these values based on your environment and data
+
+bronze:
+  source_path: "data/sample/"
+  source_format: "csv"
+  delta_path: "data/bronze/"
+  partition_by: ["event_date"]
+
+silver:
+  delta_path: "data/silver/"
+  quality_rules:
+    - null_check: ["user_id", "event_type", "timestamp"]
+    - type_check: {"amount": "double", "timestamp": "timestamp"}
+
+gold:
+  delta_path: "data/gold/"
+  aggregations:
+    - daily_summary
+    - rolling_7day_average
+
+streaming:
+  watermark_duration: "10 minutes"
+  trigger_interval: "30 seconds"
+  checkpoint_path: "data/checkpoints/"
+  session_timeout_minutes: 30
+
+cost:
+  alert_threshold_dbu: 100
+  instance_type: "i3.xlarge"
+  spot_enabled: true
