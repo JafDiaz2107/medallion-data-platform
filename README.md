@@ -97,17 +97,6 @@ Six quality dimensions monitored at every layer:
 
 Invalid records are quarantined, not dropped — enabling investigation without data loss.
 
-## Cost Analysis
-
-| Metric | Before Optimization | After Optimization | Improvement |
-|--------|--------------------|--------------------|-------------|
-| Compute cost/run | — | — | — |
-| Storage footprint | — | — | — |
-| Pipeline duration | — | — | — |
-| Instance type | — | — | — |
-
-*Populated during Week 3 with real benchmark numbers.*
-
 ## How to Run
 
 ### Local Development (Spark + Docker)
@@ -126,11 +115,6 @@ pip install -r requirements.txt
 pytest tests/ -v
 ```
 
-## Build Log
+## License
 
-| Week | What Was Built | Key Learning |
-|------|---------------|-------------|
-| 1 | Batch pipeline: Bronze → Silver → Gold with DLT orchestration | Medallion architecture, Delta Lake internals, data quality |
-| 2 | Streaming pipeline: real-time events → Iceberg + sessionization | Structured Streaming, Iceberg vs Delta, dimensional modeling |
-| 3 | Cost optimization + Unity Catalog governance + observability | Cloud cost engineering, data governance, pipeline monitoring |
-| 4 | End-to-end integration, testing, monitoring dashboard, documentation | Production readiness, testing strategies, portfolio presentation |
+MIT
